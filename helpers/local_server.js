@@ -44,7 +44,8 @@ module.exports = {
               shell: true,
               env: {
                 ...envVars,
-                PORT: port || envVars.PORT || ''
+                PORT: port || envVars.PORT || '',
+                DISABLE_HOT_RELOAD: 'true'
               }
             }
           );

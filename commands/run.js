@@ -87,19 +87,23 @@ class RunCommand extends Command {
     });
 
     // Wait for connection or timeout
+    let isTimedOut = false
     await Promise.race([
       (async () => {
         await sleep(timeout);
-        await killProcess(proc.pid);
-        throw new Error(
-          `Timed out waiting for development server.\n` +
-          `Are you sure you're not running another server on :${port}?\n` +
-          `To kill any processes running on this port on a unix system, use:\n` +
-          `$ lsof -ti :${port} | xargs kill -9`
-        );
+        if (!isConnected) {
+          isTimedOut = true;
+          await killProcess(proc.pid);
+          throw new Error(
+            `Timed out waiting for development server.\n` +
+            `Are you sure you're not running another server on :${port}?\n` +
+            `To kill any processes running on this port on a unix system, use:\n` +
+            `$ lsof -ti :${port} | xargs kill -9`
+          );
+        }
       })(),
       (async () => {
-        while (!isConnected) {
+        while (!isConnected && !isTimedOut) {
           await sleep(1);
         }
         return true;
@@ -122,23 +126,21 @@ class RunCommand extends Command {
       {},
       bodyParams,
       ({id, event, data}) => {
-        let json;
-        try {
-          json = JSON.parse(data);
-        } catch (e) {
-          // do nothing, return
-          return;
-        }
         if (event === '@response') {
+          let json = JSON.parse(data);
           result = json;
         } else if (event === '@stdout') {
+          let json = JSON.parse(data);
           json.split('\n').forEach(line => {
             console.log(colors.grey(`${params.flags.v ? colors.bold(`stdout> `) : ''}${line}`));
           });
         } else if (event === '@stderr') {
+          let json = JSON.parse(data);
           json.split('\n').forEach(line => {
             console.log(colors.yellow(`${params.flags.v ? colors.bold(`stderr> `) : ''}${line}`));
           });
+        } else {
+          console.log(colors.blue(`${colors.bold(`${event}> `)}${data}`));
         }
       }
     );
