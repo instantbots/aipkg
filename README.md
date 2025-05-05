@@ -75,7 +75,7 @@ You can run `intool help` at any time to see available commands.
    1. [Deploy an Instant Tool Package](#deploy-an-instant-tool-package)
       1. [Public packages](#public-packages)
       1. [Private packages](#private-packages)
-1. [Additional tools](#additional-tools)
+1. [Additional utilities](#additional-utilities)
    1. [Generate endpoints](#generate-endpoints)
    1. [Generate tests](#generate-tests)
    1. [Run tests](#run-tests)
@@ -226,7 +226,7 @@ You can publish private project by prepending `private/` on the
 You then deploy as normal. These packages will be visible by you in the
 registry but nobody else.
 
-# Additional tools
+# Additional utilities
 
 There are a few additional utilities you may find useful with this package;
 
