@@ -11,8 +11,8 @@ module.exports = async (params = null, validate = false) => {
   }
 
   let toolpkg;
-  const functPathname = path.join(process.cwd(), 'intool.json');
-  if (!fs.existsSync(functPathname)) {
+  const toolPathname = path.join(process.cwd(), 'intool.json');
+  if (!fs.existsSync(toolPathname)) {
     if (validate) {
       throw new Error(
         `No "intool.json" in this directory. Are you sure you meant to do this?\n` +
@@ -20,7 +20,7 @@ module.exports = async (params = null, validate = false) => {
       );
     }
   } else {
-    toolpkg = JSON.parse(fs.readFileSync(functPathname));
+    toolpkg = JSON.parse(fs.readFileSync(toolPathname));
   }
 
   let dotenv;
@@ -54,7 +54,7 @@ module.exports = async (params = null, validate = false) => {
     dotenv &&
     InstantAPI
   ) {
-    return {funct, dotenv, InstantAPI};
+    return { toolpkg, dotenv, InstantAPI };
   } else {
     return null;
   }
