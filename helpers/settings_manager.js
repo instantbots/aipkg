@@ -2,7 +2,7 @@ const os = require('os');
 const fs = require('fs');
 const path = require('path');
 
-const SETTINGS_FILENAME = '~/.functrc';
+const SETTINGS_FILENAME = '~/.intoolrc';
 
 const parsePathname = (pathname) => {
   if (!pathname) {
@@ -61,7 +61,7 @@ function readSettings (validate = false) {
     i++;
   }
   if (validate && !profileList[0]) {
-    throw new Error(`You are not logged in. Try \`funct login\` to log in first.`);
+    throw new Error(`You are not logged in. Try \`intool login\` to log in first.`);
   }
   return {
     activeProfile: profileList[0],
