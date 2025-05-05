@@ -27,17 +27,17 @@ module.exports = async (params = null, validate = false) => {
     await verifyPackages(true);
   }
 
-  let funct;
-  const functPathname = path.join(process.cwd(), 'funct.json');
+  let toolpkg;
+  const functPathname = path.join(process.cwd(), 'intool.json');
   if (!fs.existsSync(functPathname)) {
     if (validate) {
       throw new Error(
-        `No "funct.json" in this directory. Are you sure you meant to do this?\n` +
-        `Run \`$ funct init\` to initialize a project here if you are.`
+        `No "intool.json" in this directory. Are you sure you meant to do this?\n` +
+        `Run \`$ intool init\` to initialize a project here if you are.`
       );
     }
   } else {
-    funct = JSON.parse(fs.readFileSync(functPathname));
+    toolpkg = JSON.parse(fs.readFileSync(functPathname));
   }
 
   let dotenv;
@@ -67,7 +67,7 @@ module.exports = async (params = null, validate = false) => {
   }
 
   if (
-    funct &&
+    toolpkg &&
     dotenv &&
     InstantAPI
   ) {

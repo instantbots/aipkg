@@ -5,7 +5,7 @@ const io = require('io');
 
 const constants = require('../../helpers/constants.js');
 const SettingsManager = require('../../helpers/settings_manager.js');
-const loadFunct = require('../../helpers/load_funct.js');
+const loadPackage = require('../../helpers/load_package.js');
 
 class CreateOrganizationsCommand extends Command {
 
@@ -26,7 +26,7 @@ class CreateOrganizationsCommand extends Command {
 
     const settings = SettingsManager.read(true);
     const host = settings.activeProfile.host || constants.BASE_URL;
-    const Funct = await loadFunct(params, true);
+    const Funct = await loadPackage(params, true);
 
     console.log();
     console.log(`Creating organization for ${colors.bold(settings.activeProfile.email)} on ${colors.bold(host)} ...`);

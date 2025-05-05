@@ -3,7 +3,7 @@ const colors = require('colors/safe');
 const fs = require('fs');
 const childProcess = require('child_process');
 
-const loadFunct = require('../helpers/load_funct.js');
+const loadPackage = require('../helpers/load_package.js');
 
 class TestCommand extends Command {
 
@@ -22,7 +22,7 @@ class TestCommand extends Command {
 
   async run (params) {
 
-    const Funct = await loadFunct(params, true);
+    const Funct = await loadPackage(params, true);
 
     console.log();
     console.log(`Running tests ...`);

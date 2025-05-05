@@ -1,7 +1,7 @@
 const { Command } = require('cmnd');
 const colors = require('colors/safe');
 
-const loadFunct = require('../../helpers/load_funct.js');
+const loadPackage = require('../../helpers/load_package.js');
 const generateEndpoint = require('../../helpers/generate/endpoint/_index.js');
 
 class GenerateEndpointCommand extends Command {
@@ -21,7 +21,7 @@ class GenerateEndpointCommand extends Command {
 
   async run (params) {
 
-    const Funct = await loadFunct(params, true);
+    const Funct = await loadPackage(params, true);
     
     await generateEndpoint(Funct, params);
 

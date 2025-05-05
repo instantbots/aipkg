@@ -1,50 +1,78 @@
-# Funct.me Command Line Tools
+# Instant.bot Tool Package CLI
+## Extend AI agents with tools, instantly
 
-Welcome to the [**Funct.me**](https://funct.me) command line tools.
-You can use these tools to publish new packages to the Funct registry,
-available at [funct.me/packages](https://funct.me/packages).
+`intool` is the official CLI for publishing [Instant.bot](https://instant.bot) tool packages.
+You can use this utility to publish new packages to the Instant Tool Package Registry,
+available at [instant.bot/packages](https://instant.bot/packages).
 
-## What is Funct?
+[Instant.bot](https://instant.bot) enables you to rapidly build custom
+chatbots and AI agents that can be extended with custom tools. It provides four
+major features;
 
-Funct is an AI bot hosting service (beta) that allows you to build
-ChatGPT-powered bots for Discord. These bots can be extended to perform
-specific actions with custom functions aka "functs". Multiple functions
-can be packaged together in a single service, referred to as a
-[package](https://funct.me/packages).
+1. Chat with and develop your agent in real time from the web
+2. Extend your agent with [hosted tool packages](https://instant.bot/packages)
+3. Write your own private tools for your agents
+4. Deploy your agent to third-party services like Discord and Slack
 
-If you're a developer, you can think of Funct as a
-**registry and hosting service for AI actions**. The goal is for
-our developer community to ship functs that anybody can use to
-extend their own bots, sort of like NPM for AI bots.
+## What is the Instant Tool Package Registry?
+
+**Instant Tool Packages are just REST API servers.**
+
+They are built with the [Instant API](https://github.com/instant-dev/api) framework,
+which is a simple way to export and auto-document JavaScript functions as REST endpoints
+that can be called via any HTTP client.
+
+The Instant Tool Package Registry is a **serverless hosting platform and registry** for
+[Instant API](https://github.com/instant-dev/api) projects.
+
+Authentication to your published tools are handled via **API keychains** which
+are delegated via [Instant.bot](https://instant.bot).
+
+**NOTE:** While in beta, only Instant.bot agents can use your published tools.
+We'll be opening up the gateway to programmatic access in the coming months.
+
+## Instant Tool Package vs. MCP
+
+Reminder, **Instant Tool Packages are just REST API servers.**
+
+MCP, or Model Context Protocol, is a standard for passing tool and prompt context
+between AI models and service providers. Instant Tool Packages are **not**
+MCP compatible out of the box, as they are simply REST APIs. However, it is our goal to add
+MCP bindings to the [Instant API](https://github.com/instant-dev/api) framework which
+powers all Instant Tool Packages. When formalized, this will allow you to use
+Instant Tool Packages with any MCP-compatible client or service provider.
+Contributors welcome!
 
 ## Quickstart
 
-Visit [funct.me/signup](https://funct.me/signup) to register.
+Visit [instant.bot/signup](https://instant.bot/signup) to register.
 Build a new bot is easy, you can then use this CLI to develop
 and publish custom packages to extend your bots.
 
 ```shell
-$ npm i funct.me -g
+$ npm i intool -g
 $ mkdir new-project
 $ cd new-project
-$ funct init  # initialize funct project in this directory
-$ funct login # log in to funct
-$ funct serve # run your functs on a local serve to test
-$ funct run / # test a single endpoint (like curl)
-$ funct up    # publish to development environment
+$ intool init  # initialize project in this directory
+$ intool login # log in to Instant Tool Package Registry with your Instant.bot account
+$ intool serve # run your tool package on a local server to test
+$ intool run / # test a single endpoint (like curl)
+$ intool up    # publish to development environment
+$ intool up --env staging    # publish to staging environment
+$ intool up --env production # publish to production environment
 ```
 
-You can run `funct help` at any time to see available commands.
+You can run `intool help` at any time to see available commands.
 
 # Table of contents
 
-1. [How does Funct work?](#how-does-funct-work)
+1. [How does Instant.bot work?](#how-does-instant-bot-work)
    1. [Is this free or paid](#is-this-free-or-paid)
 1. [Building custom packages for your bots](#building-custom-packages-for-your-bots)
    1. [Initialize a project](#initialize-a-project)
-      1. [Defining actions aka endpoints aka functs](#defining-actions-aka-endpoints-aka-functs)
+      1. [Defining tools aka endpoints](#defining-tools-aka-endpoints)
       1. [Endpoint name, description, types](#endpoint-name-description-types)
-   1. [Deploy a Funct package](#deploy-a-funct-package)
+   1. [Deploy an Instant Tool Package](#deploy-an-instant-tool-package)
       1. [Public packages](#public-packages)
       1. [Private packages](#private-packages)
 1. [Additional tools](#additional-tools)
@@ -55,90 +83,74 @@ You can run `funct help` at any time to see available commands.
 1. [Roadmap](#roadmap)
 1. [Contact](#contact)
 
-# How does Funct work?
+# How does Instant.bot work?
 
-[Funct.me](https://funct.me) is an AI bot hosting service that has
-three major components.
+Instant.bot provides hosting for both (1) your agent and (2) your tool packages.
+Your agent is a chatbot that you can chat with directly via the Instant.bot web interface.
+Tool packages are REST APIs that can be used by your agent. You can publish tool packages
+for use by your agent and others or keep them private.
 
-- Discord bot hosting
-- Agent hosting
-- Function hosting
-
-It works like this;
-
-1. You connect Funct to your Discord server as a **discord link**
-   - The bot can be unlinked and / or kicked at any time
-   - Trigger your bot by `@mention` e.g. `@Funct hello there!`
-2. You assign an **agent** to your Discord server
-   - This can be programmed with a custom name, personality, and actions
-   - Agents can be tested independently via the [funct.me](https://funct.me) dashboard
-3. You develop and assign funct **packages** your agent can take action with
-   - These can be developed and shared publicly or privately
-4. Once you've assigned actions to your bot, it will intelligently
-   decide how and when to use them based on what it is asked
+When you ask your agent a question that requires a tool call, Instant.bot will
+automatically route the request to the appropriate tool from the Instant Tool Package Registry
+and call the tool on your behalf.
 
 ## Is this free or paid?
 
-While in beta all users get $1.00 in free usage credits to start with.
-You are billed from your credit balance for AI model usage (generating responses)
-and all function calls based on compute time (actions). If you run
-out of credits and can't afford more but are excited to contribute, please
-visit our Discord at [discord.gg/funct](https://discord.gg/funct) and
-explain your circumstances, we'll do our best to help.
+Model usage (generating responses) is a subscription-based service. However,
+for development purposes, you can use our lowest-tier model indefinitely in rate-limited mode
+on the free tier **but only while on the web interface**.
 
-Funct is built and maintained by a single developer and my goal is to make
-sure the initiative is sustainable. Credit purchases during the beta are
-appreciated. As adoption and use cases grow, expect there to be iteration
-on pricing and plans.
+Tools cost money to run, and are billed as serverless functions
+at a rate of [$0.50 of creditsper 1,000 GB-s](https://instant.bot/pricing) of usage.
+
+GB-s represents a "gigabyte-second" and is calculated by the function RAM × execution time.
+For example, a function with 512 MB (0.5 GB) of RAM running for 200ms would use:
+
+- Used GB-s = 0.5GB × 0.2s = 0.1 GB-s
+- Used credits = $0.50 / 1,000 GB-s × 0.1 GB-s = $0.00005
+
+While in beta all users get $1.00 in free usage credits to start with.
 
 # Building custom packages for your bots
 
-Building bots on [Funct.me](https://funct.me) is straightforward,
-but right now custom actions can only be published via the command line.
-Public packages can be used by anybody, check [funct.me/packages](https://funct.me/packages)
-for existing packages before trying to build your own.
+Building bots on [Instant.bot](https://instant.bot) is straightforward. Extending
+with custom tool packages can be done online via the web interface, or if you prefer
+working with your own editor, you can use this CLI.
 
 ## Initialize a project
 
-To initialize a new Funct project:
+To initialize a new Instant Tool Package project:
 
 ```shell
-$ npm i funct.me -g
+$ npm i intool -g
 $ mkdir new-project
 $ cd new-project
-$ funct init
+$ intool init
 ```
 
-You'll be walked through the process. Funct will automatically check for updates
-to core packages, so make sure you update when available. To play around with your
-Funct locally;
+You'll be walked through the process. The `intool` CLI will automatically check for
+updates to core packages, so make sure you update when available. To play around with your
+Instant Tool Package locally;
 
 ```shell
-$ funct serve
+$ intool serve
 ```
 
-Will start an HTTP server. To execute a standalone function:
+Will start an HTTP server. To execute a standalone endpoint / tool:
 
 ```shell
-$ funct run /
+$ intool run /
 ```
 
-### Defining actions aka endpoints aka functs
+### Defining tools aka endpoints
 
-Defining custom functs is easy. You'll find the terms **action**,
-**endpoint** and **funct** used interchangeably as they all refer
+Defining custom tools is easy. You'll find the terms **tool** and
+**endpoint** used interchangeably as they all refer
 to the same thing: your bot executing custom code in the cloud.
-However there are subtle differences;
 
-- An **action** is code that's executed by your bot
-- An **endpoint** refers to the specific hosted URL (e.g. `my-pkg.funct.sh/do-thing`)
-  and action that's being triggered
-- A **funct** is an endpoint specific to the Funct registry
+A **tool** is just an **endpoint** hosted by the Instant Tool Package Registry.
 
-So a **funct** is an **endpoint** hosted by the Funct registry that
-performs an **action**.
-
-All endpoints for Funct packages live in the `functions/` directory.
+All endpoints for Instant Tool Packages live in the `functions/` directory.
 Each file name maps to the endpoint route e.g. `functions/hello.mjs`
 routes to `localhost:8000/hello`. You can export custom `GET`, `POST`, `PUT`
 and `DELETE` functions from every file. Here's an example "hello world" endpoint:
@@ -157,17 +169,17 @@ export async function GET (name = 'world') {
 ```
 
 You can write any code you want and install any NPM packages you'd like to
-your Funct.
+your tool package.
 
 ### Endpoint name, description, types
 
 Using the comment block above every exported method (e.g. GET) you can
-define your endpoint. Funct uses an open source specification called
+define your endpoint. Instant Tool Packages use an open source specification called
 [Instant API](https://github.com/instant-dev/api) to export JavaScript
 functions as type safe web APIs. You can learn more about how to properly
 define and document the shape (parameters) of your API there.
 
-## Deploy a Funct package
+## Deploy an Instant Tool Package
 
 ### Public packages
 
@@ -176,7 +188,7 @@ They are billed directly from their account.
 
 By default all packages are created as public projects. Public
 projects are namespaced to your username, e.g. `@my-username/project`.
-This can be found in the `"name"` field of `funct.json`.
+This can be found in the `"name"` field of `intool.json`.
 
 Note that the code for public projects will be shared publicly for anybody
 to see, and the expectation is that others can use this code in their bots
@@ -186,14 +198,14 @@ they will be billed from their balance.
 To deploy a public project to a `development` environment, you can use:
 
 ```shell
-$ funct up
+$ intool up
 ```
 
 You can also publish to `staging` and `production` using:
 
 ```shell
-$ funct up --env staging
-$ funct up --env production
+$ intool up --env staging
+$ intool up --env production
 ```
 
 ### Private packages
@@ -203,7 +215,7 @@ packages. However, all code and endpoints will not be publicly available;
 you must share the URL with somebody in order for them to use it.
 
 You can publish private project by prepending `private/` on the
-`"name"` field in `funct.json`, e.g.
+`"name"` field in `intool.json`, e.g.
 
 ```json
 {
@@ -216,36 +228,36 @@ registry but nobody else.
 
 # Additional tools
 
-There are a few additional tools you may find useful with this package;
+There are a few additional utilities you may find useful with this package;
 
 ## Generate endpoints
 
 ```shell
 # generates functions/my-endpoint/example.mjs
-$ funct g:endpoint my-endpoint/example
+$ intool g:endpoint my-endpoint/example
 ```
 
 ## Generate tests
 
 ```shell
 # Generate blank tests or ones for an endpoint
-$ funct g:test my_test # OR ...
-$ funct g:test --endpoint my-endpoint/example
+$ intool g:test my_test # OR ...
+$ intool g:test --endpoint my-endpoint/example
 ```
 
 ## Run tests
 
-You can write tests for your functs to verify they work. Simply run;
+You can write tests for your tools to verify they work. Simply run;
 
 ```shell
-$ funct test
+$ intool test
 ```
 
 And voila!
 
 ## Environment variables
 
-You can store environment variables with your functs in;
+You can store environment variables with your packages in;
 
 ```
 .env
@@ -262,26 +274,24 @@ to another user of the platform.
 
 # Roadmap
 
-There's a lot to build! Funct is still in early beta. Coming soon;
+There's a lot to build! [Instant.bot](https://instant.bot) is still in early beta. Coming soon;
 
-- Conversation memory
-  - Bots remember what you said and previous conversations
-- Secure API secret sharing
-  - Some of the most fun actions come from using third-party APIs
-  - We'll be introducing a way to publish custom actions that
-    users can enter in their own API credentials to use
+- Deploy to Slack
+- Uploading image support
+- Knowledge bases
+- Much more!
 
-Submit requests via Discord at [discord.gg/funct](https://discord.gg/funct)!
+Submit requests via Discord at [discord.gg/instant](https://discord.gg/instant)!
 
 # Contact
 
-The best place for help and support is Discord at [discord.gg/funct](https://discord.gg/funct),
+The best place for help and support is Discord at [discord.gg/instant](https://discord.gg/instant),
 but feel free to bookmark all of these links.
 
 | Destination | Link |
 | ----------- | ---- |
-| Home | [funct.me](https://funct.me) |
-| GitHub | [github.com/functme](https://github.com/functme) |
-| Discord | [discord.gg/funct](https://discord.gg/funct) |
-| X / funct.me | [x.com/functme](https://x.com/functme) |
+| Instant.bot | [instant.bot](https://instant.bot) |
+| GitHub | [github.com/instantbots](https://github.com/instantbots) |
+| Discord | [discord.gg/instant](https://discord.gg/instant) |
+| X / instantbots | [x.com/instantbots](https://x.com/instantbots) |
 | X / Keith Horwood | [x.com/keithwhor](https://x.com/keithwhor) |

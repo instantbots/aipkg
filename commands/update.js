@@ -4,7 +4,7 @@ const childProcess = require('child_process');
 const colors = require('colors/safe');
 const semver = require('semver');
 
-const loadFunct = require('../helpers/load_funct.js');
+const loadPackage = require('../helpers/load_package.js');
 const verifyPackages = require('../helpers/verify_packages.js');
 
 class UpdateCommand extends Command {

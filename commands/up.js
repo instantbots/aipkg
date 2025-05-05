@@ -11,7 +11,7 @@ const colors = require('colors/safe');
 
 const constants = require('../helpers/constants.js');
 const SettingsManager = require('../helpers/settings_manager.js');
-const loadFunct = require('../helpers/load_funct.js');
+const loadPackage = require('../helpers/load_package.js');
 const SUPPORTED_ENVS = ['development', 'staging', 'production'];
 const DEFAULT_IGNORE = [
   'node_modules/',      // modules installed on deploy
@@ -95,7 +95,7 @@ class UpCommand extends Command {
   async run (params) {
 
     const settings = SettingsManager.read(true);
-    const Funct = await loadFunct(params, true);
+    const Funct = await loadPackage(params, true);
 
     const isVerbose = params.flags.hasOwnProperty('v');
     const env = (params.vflags.env || [])[0] || 'development';
@@ -107,10 +107,10 @@ class UpCommand extends Command {
     let packageJSON;
 
     try {
-      functJSON = require(path.join(process.cwd(), 'funct.json'));
+      functJSON = require(path.join(process.cwd(), 'intool.json'));
     } catch (e) {
       console.error(e);
-      console.error(new Error('Invalid "funct.json" in this directory'));
+      console.error(new Error('Invalid "intool.json" in this directory'));
       process.exit(1);
     }
 

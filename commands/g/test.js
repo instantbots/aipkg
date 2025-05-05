@@ -1,7 +1,7 @@
 const { Command } = require('cmnd');
 const colors = require('colors/safe');
 
-const loadFunct = require('../../helpers/load_funct.js');
+const loadPackage = require('../../helpers/load_package.js');
 const generateTest = require('../../helpers/generate/test/_index.js');
 
 class GenerateTestCommand extends Command {
@@ -23,7 +23,7 @@ class GenerateTestCommand extends Command {
 
   async run (params) {
 
-    const Funct = await loadFunct(params, true);
+    const Funct = await loadPackage(params, true);
 
     let specificity = [params.args[0], params.vflags.endpoint[0]];
     let submitted = specificity.filter(v => v);

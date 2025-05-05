@@ -63,7 +63,7 @@ module.exports = async (print = false) => {
       drawBox.center(
         `yellow`,
         ``,
-        `Updates are available for ${colors.bold('Funct')}:`,
+        `Updates are available for ${colors.bold('intool')}:`,
         ``,
         ...updatePackages.map(pkg => {
           return [
@@ -74,7 +74,7 @@ module.exports = async (print = false) => {
           ].join('\n')
         }),
         `Install all with:`,
-        `${colors.bold.grey(`funct update`)}`,
+        `${colors.bold.grey(`intool update`)}`,
         ``
       )
     );

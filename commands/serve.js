@@ -1,6 +1,6 @@
 const { Command } = require('cmnd');
 
-const loadFunct = require('../helpers/load_funct.js');
+const loadPackage = require('../helpers/load_package.js');
 const localServer = require('../helpers/local_server.js');
 
 class ServeCommand extends Command {
@@ -22,7 +22,7 @@ class ServeCommand extends Command {
 
   async run (params) {
 
-    const Funct = await loadFunct(params, true);
+    const Funct = await loadPackage(params, true);
 
     localServer.run({ port: 8100 });
 

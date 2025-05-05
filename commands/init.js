@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
 
-const loadFunct = require('../helpers/load_funct.js');
+const loadPackage = require('../helpers/load_package.js');
 const fileWriter = require('../helpers/file_writer.js');
 const drawBox = require('../helpers/draw_box.js');
 
@@ -79,7 +79,7 @@ class InitCommand extends Command {
     );
 
     const pkgExists = fs.existsSync('package.json');
-    const functExists = fs.existsSync('funct.json');
+    const functExists = fs.existsSync('intool.json');
 
     console.log();
     console.log(`🪄 You are about to initialize ${colors.bold('Funct')} in the current directory:`)
@@ -88,7 +88,7 @@ class InitCommand extends Command {
     if ((pkgExists || functExists) && !force) {
       throw new Error(
         `You already have a project initialized here.\n` +
-        `If you want to overwrite it, use \`$ funct init --force\``
+        `If you want to overwrite it, use \`$ intool init --force\``
       );
     } else {
       console.log(`✨ We've detected you're starting from scratch`);
@@ -106,7 +106,7 @@ class InitCommand extends Command {
       }
     }
 
-    let Funct = await loadFunct(params);
+    let Funct = await loadPackage(params);
     if (!Funct) {
       console.log();
       console.log(colors.bold.black(`Installing:`) + ` "@instant.dev/api@latest" (dev) ...`);
@@ -178,12 +178,12 @@ class InitCommand extends Command {
     writeInitFiles(filesRoot);
     // Write package.json: make sure no publish to npm
     fileWriter.writeJSON('package.json', 'private', true);
-    // Write funct.json: default is public
-    fileWriter.writeJSON('funct.json', 'name', functName);
-    fileWriter.writeJSON('funct.json', 'private', true);
+    // Write intool.json: default is public
+    fileWriter.writeJSON('intool.json', 'name', functName);
+    fileWriter.writeJSON('intool.json', 'private', true);
 
     // Now we reload Funct to verify
-    Funct = await loadFunct(null, true);
+    Funct = await loadPackage(null, true);
 
     console.log();
     console.log(`Project "${colors.bold.blue(functName)}" initialized successfully!`);
@@ -192,19 +192,19 @@ class InitCommand extends Command {
       drawBox.left(
         `green`,
         ``,
-        colors.bold.green(`Success:`) + ` ${colors.bold(`Funct`)} initialized!`,
+        colors.bold.green(`Success:`) + ` Instant tool package initialized!`,
         `Here are some helpful commands to get started:`,
         ``,
         `(1) Create a set of endpoints for a path (create, read, update, destroy):`,
-        colors.grey.bold(`     $ funct g:endpoint path/to/endpoint\n`),
+        colors.grey.bold(`     $ intool g:endpoint path/to/endpoint\n`),
         `(2) Run your dev server:`,
-        colors.grey.bold(`     $ funct serve`),
+        colors.grey.bold(`     $ intool serve`),
         ``,
-        `For more information about ${colors.bold(`Funct`)}:`,
-        `     Home    => ${colors.bold.underline.blue('https://funct.me')}`,
-        `     GitHub  => ${colors.bold.underline.blue('https://github.com/functme')}`,
-        `     Discord => ${colors.bold.underline.blue('https://discord.gg/puVYgA7ZMh')}`,
-        `     X       => ${colors.bold.underline.blue('https://x.com/functme')}`,
+        `For more information about ${colors.bold(`Instant.bot`)}:`,
+        `     Home    => ${colors.bold.underline.blue('https://instant.bot')}`,
+        `     GitHub  => ${colors.bold.underline.blue('https://github.com/instantbots')}`,
+        `     Discord => ${colors.bold.underline.blue('https://discord.gg/instant')}`,
+        `     X       => ${colors.bold.underline.blue('https://x.com/instantbots')}`,
         ``,
         colors.green.bold(`Happy building! :)`),
         ``

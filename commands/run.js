@@ -3,7 +3,7 @@ const colors = require('colors/safe');
 const io = require('io');
 const kill = require('tree-kill');
 
-const loadFunct = require('../helpers/load_funct.js');
+const loadPackage = require('../helpers/load_package.js');
 const localServer = require('../helpers/local_server.js');
 
 const sleep = t => new Promise(r => setTimeout(() => r(1), t));
@@ -42,7 +42,7 @@ class RunCommand extends Command {
   async run(params) {
 
     // Use 8199 for test runs
-    const Funct = await loadFunct(params, true);
+    const Funct = await loadPackage(params, true);
     const port = 8199;
     const timeout = 5000;
     const url = `http://localhost:${port}`;
