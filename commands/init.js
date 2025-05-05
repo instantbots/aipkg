@@ -57,7 +57,7 @@ class InitCommand extends Command {
 
   help () {
     return {
-      description: 'Initialize a new Funct project',
+      description: 'Initialize a new Instant Tool Package project',
       args: [],
       flags: {},
       vflags: {
@@ -74,7 +74,7 @@ class InitCommand extends Command {
     console.log(
       drawBox.center(
         `blue`,
-        `Welcome to ${colors.bold.green('🤖 Funct')}!`,
+        `Welcome to ${colors.bold.green('🤖 Instant.bot')}!`,
       )
     );
 
@@ -82,7 +82,7 @@ class InitCommand extends Command {
     const functExists = fs.existsSync('intool.json');
 
     console.log();
-    console.log(`🪄 You are about to initialize ${colors.bold('Funct')} in the current directory:`)
+    console.log(`🪄 You are about to initialize an ${colors.bold('Instant Tool Package')} in the current directory:`)
     console.log(`   📂 ${colors.dim(process.cwd())}`);
     console.log();
     if ((pkgExists || functExists) && !force) {
@@ -106,8 +106,8 @@ class InitCommand extends Command {
       }
     }
 
-    let Funct = await loadPackage(params);
-    if (!Funct) {
+    let InstantToolPackage = await loadPackage(params);
+    if (!InstantToolPackage) {
       console.log();
       console.log(colors.bold.black(`Installing:`) + ` "@instant.dev/api@latest" (dev) ...`);
       if ('link' in params.vflags) {
@@ -182,8 +182,8 @@ class InitCommand extends Command {
     fileWriter.writeJSON('intool.json', 'name', functName);
     fileWriter.writeJSON('intool.json', 'private', true);
 
-    // Now we reload Funct to verify
-    Funct = await loadPackage(null, true);
+    // Now we reload InstantToolPackage to verify
+    InstantToolPackage = await loadPackage(null, true);
 
     console.log();
     console.log(`Project "${colors.bold.blue(functName)}" initialized successfully!`);

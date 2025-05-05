@@ -5,7 +5,7 @@ const colors = require('colors/safe');
 
 const fileWriter = require('../../file_writer.js');
 
-module.exports = async (Funct, params) => {
+module.exports = async (InstantToolPackage, params) => {
 
   let testName = params.args[0] || '';
   testName = testName.split('/').filter(v => !!v).join('/');

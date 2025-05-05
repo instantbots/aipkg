@@ -19,7 +19,7 @@ const DEFAULT_IGNORE = [
   '.git',               // do not deploy git history
   '.DS_Store',          // do not deploy macOS files
   'package-lock.json',  // deps installed from package.json
-  'serve.funct.mjs'     // not used by Funct registry; irrelevant
+  'serve.instant.mjs'     // not used by Instant Tool Package Registry; irrelevant
 ];
 
 function formatSize (size) {
@@ -81,7 +81,7 @@ class UpCommand extends Command {
 
   help () {
     return {
-      description: 'Deploys your project to the Funct registry',
+      description: 'Deploys your project to the Instant Tool Package Registry',
       args: [],
       flags: {
         v: 'Verbose mode; print full details of packaging'
@@ -95,7 +95,7 @@ class UpCommand extends Command {
   async run (params) {
 
     const settings = SettingsManager.read(true);
-    const Funct = await loadPackage(params, true);
+    const InstantToolPackage = await loadPackage(params, true);
 
     const isVerbose = params.flags.hasOwnProperty('v');
     const env = (params.vflags.env || [])[0] || 'development';

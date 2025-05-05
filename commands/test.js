@@ -22,7 +22,7 @@ class TestCommand extends Command {
 
   async run (params) {
 
-    const Funct = await loadPackage(params, true);
+    const InstantToolPackage = await loadPackage(params, true);
 
     console.log();
     console.log(`Running tests ...`);

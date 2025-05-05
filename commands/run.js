@@ -42,7 +42,7 @@ class RunCommand extends Command {
   async run(params) {
 
     // Use 8199 for test runs
-    const Funct = await loadPackage(params, true);
+    const InstantToolPackage = await loadPackage(params, true);
     const port = 8199;
     const timeout = 5000;
     const url = `http://localhost:${port}`;
