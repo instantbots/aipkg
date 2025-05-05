@@ -180,7 +180,6 @@ class InitCommand extends Command {
     fileWriter.writeJSON('package.json', 'private', true);
     // Write intool.json: default is public
     fileWriter.writeJSON('intool.json', 'name', functName);
-    fileWriter.writeJSON('intool.json', 'private', true);
 
     // Now we reload InstantToolPackage to verify
     InstantToolPackage = await loadPackage(null, true);
