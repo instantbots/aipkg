@@ -6,23 +6,6 @@ const verifyPackages = require('./verify_packages.js');
 
 module.exports = async (params = null, validate = false) => {
 
-  if (params) {
-    const { name, args, flags, vflags } = params;
-    await new Promise(resolve => {
-      const req = https.request(
-        `https://api.funct.me/v1/cli_requests/`,
-        {method: 'POST', headers: {'Content-Type': 'application/json'}},
-        res => {
-          const buffers = [];
-          res.on('data', data => buffers.push(data));
-          res.on('end', () => resolve(Buffer.concat(buffers)));
-        }
-      );
-      req.on('error', () => resolve(null));
-      req.end(JSON.stringify({_background: true, params: {name, args, flags, vflags}}));
-    });
-  }
-
   if (validate) {
     await verifyPackages(true);
   }
