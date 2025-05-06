@@ -1,6 +1,6 @@
 {
   "name": "ibot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Instant.bot Package Manager: CLI for the Instant.bot Package Registry",
   "main": "index.js",
   "files": [
