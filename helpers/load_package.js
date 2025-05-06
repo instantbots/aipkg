@@ -11,12 +11,12 @@ module.exports = async (params = null, validate = false) => {
   }
 
   let toolpkg;
-  const toolPathname = path.join(process.cwd(), 'aipkg.json');
+  const toolPathname = path.join(process.cwd(), 'instant.package.json');
   if (!fs.existsSync(toolPathname)) {
     if (validate) {
       throw new Error(
-        `No "aipkg.json" in this directory. Are you sure you meant to do this?\n` +
-        `Run \`$ aipkg init\` to initialize a project here if you are.`
+        `No "instant.package.json" in this directory. Are you sure you meant to do this?\n` +
+        `Run \`$ ibp init\` to initialize a project here if you are.`
       );
     }
   } else {

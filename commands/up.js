@@ -107,10 +107,10 @@ class UpCommand extends Command {
     let packageJSON;
 
     try {
-      functJSON = require(path.join(process.cwd(), 'aipkg.json'));
+      functJSON = require(path.join(process.cwd(), 'instant.package.json'));
     } catch (e) {
       console.error(e);
-      console.error(new Error('Invalid "aipkg.json" in this directory'));
+      console.error(new Error('Invalid "instant.package.json" in this directory'));
       process.exit(1);
     }
 
@@ -130,9 +130,9 @@ class UpCommand extends Command {
     console.log();
 
     !fs.existsSync('/tmp') && fs.mkdirSync('/tmp');
-    !fs.existsSync('/tmp/aipkg') && fs.mkdirSync('/tmp/aipkg', 0o777);
+    !fs.existsSync('/tmp/ibp') && fs.mkdirSync('/tmp/ibp', 0o777);
     const tmpName = name.replace(/\//g, '.');
-    const tmpPath = `/tmp/aipkg/${tmpName}.${new Date().valueOf()}.tar.gz`;
+    const tmpPath = `/tmp/ibp/${tmpName}.${new Date().valueOf()}.tar.gz`;
 
     const t0 = new Date().valueOf();
 
@@ -140,9 +140,9 @@ class UpCommand extends Command {
     const pack = tar.pack();
 
     let ignore = DEFAULT_IGNORE.slice();
-    if (fs.existsSync(path.join(process.cwd(), '.aipkgignore'))) {
+    if (fs.existsSync(path.join(process.cwd(), '.ibpignore'))) {
       ignore = ignore.concat(
-        fs.readFileSync(path.join(process.cwd(), '.aipkgignore')).toString()
+        fs.readFileSync(path.join(process.cwd(), '.ibpignore')).toString()
           .split('\n')
           .map(line => line.trim())
           .filter(line => !!line && !line.trim().startsWith('#'))

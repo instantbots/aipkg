@@ -79,7 +79,7 @@ class InitCommand extends Command {
     );
 
     const pkgExists = fs.existsSync('package.json');
-    const functExists = fs.existsSync('aipkg.json');
+    const functExists = fs.existsSync('instant.package.json');
 
     console.log();
     console.log(`🪄 You are about to initialize an ${colors.bold('Instant.bot Package')} in the current directory:`)
@@ -88,7 +88,7 @@ class InitCommand extends Command {
     if ((pkgExists || functExists) && !force) {
       throw new Error(
         `You already have a project initialized here.\n` +
-        `If you want to overwrite it, use \`$ aipkg init --force\``
+        `If you want to overwrite it, use \`$ ibp init --force\``
       );
     } else {
       console.log(`✨ We've detected you're starting from scratch`);
@@ -178,8 +178,8 @@ class InitCommand extends Command {
     writeInitFiles(filesRoot);
     // Write package.json: make sure no publish to npm
     fileWriter.writeJSON('package.json', 'private', true);
-    // Write aipkg.json: default is public
-    fileWriter.writeJSON('aipkg.json', 'name', functName);
+    // Write instant.package.json: default is public
+    fileWriter.writeJSON('instant.package.json', 'name', functName);
 
     // Now we reload InstantPackage to verify
     InstantPackage = await loadPackage(null, true);
@@ -195,9 +195,9 @@ class InitCommand extends Command {
         `Here are some helpful commands to get started:`,
         ``,
         `(1) Create a set of endpoints for a path (create, read, update, destroy):`,
-        colors.grey.bold(`     $ aipkg g:endpoint path/to/endpoint\n`),
+        colors.grey.bold(`     $ ibp g:endpoint path/to/endpoint\n`),
         `(2) Run your dev server:`,
-        colors.grey.bold(`     $ aipkg serve`),
+        colors.grey.bold(`     $ ibp serve`),
         ``,
         `For more information about ${colors.bold(`Instant.bot`)}:`,
         `     Home    => ${colors.bold.underline.blue('https://instant.bot')}`,

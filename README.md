@@ -1,8 +1,8 @@
-# Instant.bot Package Registry CLI
+# Instant.bot Package Manager
 ## Extend AI agents with tools, instantly
 
-`aipkg` is the official CLI for publishing [Instant.bot](https://instant.bot) packages.
-You can use this utility to publish new packages to the Instant.bot Package Registry,
+`ibp` is the official CLI for publishing [Instant.bot](https://instant.bot) packages.
+You can use this utility to publish new packages to the Instant.bot package registry,
 available at [instant.bot/packages](https://instant.bot/packages).
 
 [Instant.bot](https://instant.bot) enables you to rapidly build custom
@@ -16,15 +16,13 @@ major features;
 
 ## What is the Instant.bot Package Registry?
 
-**Instant.bot Packages are just REST API servers.**
-The server HTTP endpoints are available to your agents and chatbots as tools.
+The Instant.bot Package Registry is a **serverless hosting platform and registry** for
+building tools that extend AI chatbots and agents.
 
-Packages are built with the [Instant API](https://github.com/instant-dev/api) framework,
+**Instant.bot packages are just REST API servers.**
+Every package is an [Instant API](https://github.com/instant-dev/api) project,
 which is a simple way to export and auto-document JavaScript functions as REST endpoints
 that can be called via any HTTP client.
-
-The Instant.bot Package Registry is a **serverless hosting platform and registry** for
-[Instant API](https://github.com/instant-dev/api) projects.
 
 Authentication to your published packagesare handled via **API keychains** which
 are delegated via [Instant.bot](https://instant.bot).
@@ -34,14 +32,14 @@ We'll be opening up the gateway to programmatic access in the coming months.
 
 ## Instant.bot Package vs. MCP
 
-Reminder, **Instant.bot Packages are just REST API servers.**
+Reminder, **Instant.bot packages are just REST API servers.**
 
 MCP, or Model Context Protocol, is a standard for passing tool and prompt context
-between AI models and service providers. Instant.bot Packages are **not**
+between AI models and service providers. Instant.bot packages are **not**
 MCP compatible out of the box, as they are simply REST APIs. However, it is our goal to add
 MCP bindings to the [Instant API](https://github.com/instant-dev/api) framework which
-powers all Instant.bot Packages. When formalized, this will allow you to use
-Instant.bot Packages with any MCP-compatible client or service provider.
+powers all Instant.bot packages. When formalized, this will allow you to use
+Instant.bot packages with any MCP-compatible client or service provider.
 Contributors welcome!
 
 ## Quickstart
@@ -51,19 +49,19 @@ Creating a new bot is easy, you can then use this CLI to develop
 and publish custom packages to extend your bots.
 
 ```shell
-$ npm i aipkg -g
+$ npm i ibp -g
 $ mkdir new-project
 $ cd new-project
-$ aipkg init  # initialize project in this directory
-$ aipkg login # log in to Instant.bot Package Registry with your Instant.bot account
-$ aipkg serve # run your tool package on a local server to test
-$ aipkg run / # test a single endpoint (like curl)
-$ aipkg up    # publish to development environment
-$ aipkg up --env staging    # publish to staging environment
-$ aipkg up --env production # publish to production environment
+$ ibp init  # initialize project in this directory
+$ ibp login # log in to Instant.bot Package Registry with your Instant.bot account
+$ ibp serve # run your tool package on a local server to test
+$ ibp run / # test a single endpoint (like curl)
+$ ibp up    # publish to development environment
+$ ibp up --env staging    # publish to staging environment
+$ ibp up --env production # publish to production environment
 ```
 
-You can run `aipkg help` at any time to see available commands.
+You can run `ibp help` at any time to see available commands.
 
 # Table of contents
 
@@ -120,27 +118,27 @@ working with your own editor, you can use this CLI.
 
 ## Initialize a project
 
-To initialize a new Instant.bot Package project:
+To initialize a new Instant.bot package:
 
 ```shell
-$ npm i aipkg -g
+$ npm i ibp -g
 $ mkdir new-project
 $ cd new-project
-$ aipkg init
+$ ibp init
 ```
 
-You'll be walked through the process. The `aipkg` CLI will automatically check for
+You'll be walked through the process. The `ibp` CLI will automatically check for
 updates to core packages, so make sure you update when available. To play around with your
-Instant.bot Package locally;
+Instant.bot package locally;
 
 ```shell
-$ aipkg serve
+$ ibp serve
 ```
 
 Will start an HTTP server. To execute a standalone endpoint / tool:
 
 ```shell
-$ aipkg run /
+$ ibp run /
 ```
 
 ### Defining tools aka endpoints
@@ -151,7 +149,7 @@ to the same thing: your bot executing custom code in the cloud.
 
 A **tool** is just an **endpoint** hosted by the Instant.bot Package Registry.
 
-All endpoints for Instant.bot Packages live in the `functions/` directory.
+All endpoints for Instant.bot packages live in the `functions/` directory.
 Each file name maps to the endpoint route e.g. `functions/hello.js`
 routes to `localhost:8000/hello`. You can export custom `GET`, `POST`, `PUT`
 and `DELETE` functions from every file. Here's an example "hello world" endpoint:
@@ -175,7 +173,7 @@ your tool package.
 ### Endpoint name, description, types
 
 Using the comment block above every exported method (e.g. GET) you can
-define your endpoint. Instant.bot Packages use an open source specification called
+define your endpoint. Instant.bot packages use an open source specification called
 [Instant API](https://github.com/instant-dev/api) to export JavaScript
 functions as type safe web APIs. You can learn more about how to properly
 define and document the shape (parameters) of your API there.
@@ -189,7 +187,7 @@ They are billed directly from their account.
 
 By default all packages are created as public projects. Public
 projects are namespaced to your username, e.g. `@my-username/project`.
-This can be found in the `"name"` field of `aipkg.json`.
+This can be found in the `"name"` field of `instant.package.json`.
 
 Note that the code for public projects will be shared publicly for anybody
 to see, and the expectation is that others can use this code in their bots
@@ -199,14 +197,14 @@ they will be billed from their balance.
 To deploy a public project to a `development` environment, you can use:
 
 ```shell
-$ aipkg up
+$ ibp up
 ```
 
 You can also publish to `staging` and `production` using:
 
 ```shell
-$ aipkg up --env staging
-$ aipkg up --env production
+$ ibp up --env staging
+$ ibp up --env production
 ```
 
 ### Private packages
@@ -216,7 +214,7 @@ packages. However, all code and endpoints will not be publicly available;
 you must share the URL with somebody in order for them to use it.
 
 You can publish private project by prepending `private/` on the
-`"name"` field in `aipkg.json`, e.g.
+`"name"` field in `instant.package.json`, e.g.
 
 ```json
 {
@@ -235,15 +233,15 @@ There are a few additional utilities you may find useful with this package;
 
 ```shell
 # generates functions/my-endpoint/example.js
-$ aipkg g:endpoint my-endpoint/example
+$ ibp g:endpoint my-endpoint/example
 ```
 
 ## Generate tests
 
 ```shell
 # Generate blank tests or ones for an endpoint
-$ aipkg g:test my_test # OR ...
-$ aipkg g:test --endpoint my-endpoint/example
+$ ibp g:test my_test # OR ...
+$ ibp g:test --endpoint my-endpoint/example
 ```
 
 ## Run tests
@@ -251,7 +249,7 @@ $ aipkg g:test --endpoint my-endpoint/example
 You can write tests for your tools to verify they work. Simply run;
 
 ```shell
-$ aipkg test
+$ ibp test
 ```
 
 And voila!

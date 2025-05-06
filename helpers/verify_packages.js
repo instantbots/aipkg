@@ -63,7 +63,7 @@ module.exports = async (print = false) => {
       drawBox.center(
         `yellow`,
         ``,
-        `Updates are available for ${colors.bold('aipkg')}:`,
+        `Updates are available for ${colors.bold('ibp')}:`,
         ``,
         ...updatePackages.map(pkg => {
           return [
@@ -74,7 +74,7 @@ module.exports = async (print = false) => {
           ].join('\n')
         }),
         `Install all with:`,
-        `${colors.bold.grey(`aipkg update`)}`,
+        `${colors.bold.grey(`ibp update`)}`,
         ``
       )
     );
