@@ -15,7 +15,7 @@ module.exports = async (InstantPackage, params) => {
 
   if (testName) {
 
-    const pathname = path.join(__dirname, '..', '..', '..', 'src', 'test', 'blank.mjs');
+    const pathname = path.join(__dirname, '..', '..', '..', 'src', 'test', 'blank.js');
     if (!fs.existsSync(pathname)) {
       throw new Error(`No test template found for model.`);
     }
@@ -23,7 +23,7 @@ module.exports = async (InstantPackage, params) => {
     let fileString = fs.readFileSync(pathname).toString();
     fileString = fileString.replaceAll('Name', testName);
 
-    let newFilename = `test/tests/${testName}.mjs`;
+    let newFilename = `test/tests/${testName}.js`;
     const fileData = Buffer.from(fileString);
     fileWriter.writeFile(newFilename, fileData, false);
 
@@ -33,7 +33,7 @@ module.exports = async (InstantPackage, params) => {
 
   } else if (endpointFor) {
 
-    const pathname = path.join(__dirname, '..', '..', '..', 'src', 'test', 'endpoint.mjs');
+    const pathname = path.join(__dirname, '..', '..', '..', 'src', 'test', 'endpoint.js');
     if (!fs.existsSync(pathname)) {
       throw new Error(`No test template found for endpoint.`);
     }
@@ -44,7 +44,7 @@ module.exports = async (InstantPackage, params) => {
       endpointFor = endpointFor.slice('/functions'.length);
     }
     endpointFor = endpointFor.replace(/\.m?js$/, '');
-    let functionPathname = path.join(process.cwd(), `functions`, `${endpointFor}.mjs`);
+    let functionPathname = path.join(process.cwd(), `functions`, `${endpointFor}.js`);
     if (!fs.existsSync(functionPathname)) {
       functionPathname = path.join(process.cwd(), `functions`, `${endpointFor}.js`);
       if (!fs.existsSync(functionPathname)) {
@@ -97,7 +97,7 @@ module.exports = async (InstantPackage, params) => {
       }).join('\n\n')
     );
 
-    let newFilename = `test/tests/functions${endpointFor}.mjs`;
+    let newFilename = `test/tests/functions${endpointFor}.js`;
     const fileData = Buffer.from(fileString);
     fileWriter.writeFile(newFilename, fileData, false);
 

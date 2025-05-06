@@ -3,7 +3,7 @@ const expect = chai.expect;
 
 /**
  * Name test
- * @param {any} setupResult Result of the function passed to `.setup()` in `test/run.mjs`
+ * @param {any} setupResult Result of the function passed to `.setup()` in `test/run.js`
  */
 export default async function (setupResult) {
 

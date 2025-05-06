@@ -19,7 +19,7 @@ const DEFAULT_IGNORE = [
   '.git',               // do not deploy git history
   '.DS_Store',          // do not deploy macOS files
   'package-lock.json',  // deps installed from package.json
-  'serve.instant.mjs'     // not used by Instant.bot Package Registry; irrelevant
+  'serve.instant.js'     // not used by Instant.bot Package Registry; irrelevant
 ];
 
 function formatSize (size) {

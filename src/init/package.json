@@ -1,9 +1,10 @@
 {
   "name": "@/not_npm_project",
   "private": false,
+  "type": "module",
   "scripts": {
-    "start": "node serve.instant.mjs",
-    "test": "mocha test/run.mjs"
+    "start": "node serve.instant.js",
+    "test": "mocha test/run.js"
   },
   "dependencies": {},
   "devDependencies": {

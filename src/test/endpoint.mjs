@@ -4,7 +4,7 @@ const expect = chai.expect;
 export const name = `Endpoint tests: Pathname`;
 /**
  * Endpoint tests: Pathname
- * @param {any} setupResult Result of the function passed to `.setup()` in `test/run.mjs`
+ * @param {any} setupResult Result of the function passed to `.setup()` in `test/run.js`
  */
 export default async function (setupResult) {
 

@@ -152,12 +152,12 @@ to the same thing: your bot executing custom code in the cloud.
 A **tool** is just an **endpoint** hosted by the Instant.bot Package Registry.
 
 All endpoints for Instant.bot Packages live in the `functions/` directory.
-Each file name maps to the endpoint route e.g. `functions/hello.mjs`
+Each file name maps to the endpoint route e.g. `functions/hello.js`
 routes to `localhost:8000/hello`. You can export custom `GET`, `POST`, `PUT`
 and `DELETE` functions from every file. Here's an example "hello world" endpoint:
 
 ```javascript
-// functions/hello.mjs (mjs is node module default)
+// functions/hello.js
 
 /**
  * A basic hello world function
@@ -234,7 +234,7 @@ There are a few additional utilities you may find useful with this package;
 ## Generate endpoints
 
 ```shell
-# generates functions/my-endpoint/example.mjs
+# generates functions/my-endpoint/example.js
 $ aipkg g:endpoint my-endpoint/example
 ```
 
