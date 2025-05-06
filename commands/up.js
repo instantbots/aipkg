@@ -130,9 +130,9 @@ class UpCommand extends Command {
     console.log();
 
     !fs.existsSync('/tmp') && fs.mkdirSync('/tmp');
-    !fs.existsSync('/tmp/ibp') && fs.mkdirSync('/tmp/ibp', 0o777);
+    !fs.existsSync('/tmp/ibot') && fs.mkdirSync('/tmp/ibot', 0o777);
     const tmpName = name.replace(/\//g, '.');
-    const tmpPath = `/tmp/ibp/${tmpName}.${new Date().valueOf()}.tar.gz`;
+    const tmpPath = `/tmp/ibot/${tmpName}.${new Date().valueOf()}.tar.gz`;
 
     const t0 = new Date().valueOf();
 
@@ -140,9 +140,9 @@ class UpCommand extends Command {
     const pack = tar.pack();
 
     let ignore = DEFAULT_IGNORE.slice();
-    if (fs.existsSync(path.join(process.cwd(), '.ibpignore'))) {
+    if (fs.existsSync(path.join(process.cwd(), '.ibotignore'))) {
       ignore = ignore.concat(
-        fs.readFileSync(path.join(process.cwd(), '.ibpignore')).toString()
+        fs.readFileSync(path.join(process.cwd(), '.ibotignore')).toString()
           .split('\n')
           .map(line => line.trim())
           .filter(line => !!line && !line.trim().startsWith('#'))

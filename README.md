@@ -1,7 +1,7 @@
 # Instant.bot Package Manager
 ## Extend AI agents with tools, instantly
 
-`ibp` is the official CLI for publishing [Instant.bot](https://instant.bot) packages.
+`ibot` is the official CLI for publishing [Instant.bot](https://instant.bot) packages.
 You can use this utility to publish new packages to the Instant.bot package registry,
 available at [instant.bot/packages](https://instant.bot/packages).
 
@@ -49,19 +49,19 @@ Creating a new bot is easy, you can then use this CLI to develop
 and publish custom packages to extend your bots.
 
 ```shell
-$ npm i ibp -g
+$ npm i ibot -g
 $ mkdir new-project
 $ cd new-project
-$ ibp init  # initialize project in this directory
-$ ibp login # log in to Instant.bot Package Registry with your Instant.bot account
-$ ibp serve # run your tool package on a local server to test
-$ ibp run / # test a single endpoint (like curl)
-$ ibp up    # publish to development environment
-$ ibp up --env staging    # publish to staging environment
-$ ibp up --env production # publish to production environment
+$ ibot init  # initialize project in this directory
+$ ibot login # log in to Instant.bot Package Registry with your Instant.bot account
+$ ibot serve # run your tool package on a local server to test
+$ ibot run / # test a single endpoint (like curl)
+$ ibot up    # publish to development environment
+$ ibot up --env staging    # publish to staging environment
+$ ibot up --env production # publish to production environment
 ```
 
-You can run `ibp help` at any time to see available commands.
+You can run `ibot help` at any time to see available commands.
 
 # Table of contents
 
@@ -121,24 +121,24 @@ working with your own editor, you can use this CLI.
 To initialize a new Instant.bot package:
 
 ```shell
-$ npm i ibp -g
+$ npm i ibot -g
 $ mkdir new-project
 $ cd new-project
-$ ibp init
+$ ibot init
 ```
 
-You'll be walked through the process. The `ibp` CLI will automatically check for
+You'll be walked through the process. The `ibot` CLI will automatically check for
 updates to core packages, so make sure you update when available. To play around with your
 Instant.bot package locally;
 
 ```shell
-$ ibp serve
+$ ibot serve
 ```
 
 Will start an HTTP server. To execute a standalone endpoint / tool:
 
 ```shell
-$ ibp run /
+$ ibot run /
 ```
 
 ### Defining tools aka endpoints
@@ -197,14 +197,14 @@ they will be billed from their balance.
 To deploy a public project to a `development` environment, you can use:
 
 ```shell
-$ ibp up
+$ ibot up
 ```
 
 You can also publish to `staging` and `production` using:
 
 ```shell
-$ ibp up --env staging
-$ ibp up --env production
+$ ibot up --env staging
+$ ibot up --env production
 ```
 
 ### Private packages
@@ -233,15 +233,15 @@ There are a few additional utilities you may find useful with this package;
 
 ```shell
 # generates functions/my-endpoint/example.js
-$ ibp g:endpoint my-endpoint/example
+$ ibot g:endpoint my-endpoint/example
 ```
 
 ## Generate tests
 
 ```shell
 # Generate blank tests or ones for an endpoint
-$ ibp g:test my_test # OR ...
-$ ibp g:test --endpoint my-endpoint/example
+$ ibot g:test my_test # OR ...
+$ ibot g:test --endpoint my-endpoint/example
 ```
 
 ## Run tests
@@ -249,7 +249,7 @@ $ ibp g:test --endpoint my-endpoint/example
 You can write tests for your tools to verify they work. Simply run;
 
 ```shell
-$ ibp test
+$ ibot test
 ```
 
 And voila!

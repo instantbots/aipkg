@@ -2,7 +2,7 @@ const os = require('os');
 const fs = require('fs');
 const path = require('path');
 
-const SETTINGS_FILENAME = '~/.ibprc';
+const SETTINGS_FILENAME = '~/.ibotrc';
 
 const parsePathname = (pathname) => {
   if (!pathname) {
@@ -61,7 +61,7 @@ function readSettings (validate = false) {
     i++;
   }
   if (validate && !profileList[0]) {
-    throw new Error(`You are not logged in. Try \`ibp login\` to log in first.`);
+    throw new Error(`You are not logged in. Try \`ibot login\` to log in first.`);
   }
   return {
     activeProfile: profileList[0],
