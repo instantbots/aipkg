@@ -47,7 +47,7 @@ Contributors welcome!
 ## Quickstart
 
 Visit [instant.bot/signup](https://instant.bot/signup) to register.
-Build a new bot is easy, you can then use this CLI to develop
+Creating a new bot is easy, you can then use this CLI to develop
 and publish custom packages to extend your bots.
 
 ```shell
