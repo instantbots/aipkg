@@ -102,15 +102,15 @@ for development purposes, you can use our lowest-tier model indefinitely in rate
 on the free tier **but only while on the web interface**.
 
 Tools cost money to run, and are billed as serverless functions
-at a rate of [$0.50 of creditsper 1,000 GB-s](https://instant.bot/pricing) of usage.
+at a rate of [$0.50 of credits per 1,000 GB-s](https://instant.bot/pricing) of usage.
+Credits are prepaid, and during our beta period all users get a one-time bonus of $1.00
+in free usage credits.
 
 GB-s represents a "gigabyte-second" and is calculated by the function RAM × execution time.
 For example, a function with 512 MB (0.5 GB) of RAM running for 200ms would use:
 
 - Used GB-s = 0.5GB × 0.2s = 0.1 GB-s
 - Used credits = $0.50 / 1,000 GB-s × 0.1 GB-s = $0.00005
-
-While in beta all users get $1.00 in free usage credits to start with.
 
 # Building custom packages for your bots
 
