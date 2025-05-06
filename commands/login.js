@@ -14,7 +14,7 @@ class LoginCommand extends Command {
 
   help () {
     return {
-      description: 'Login to the Instant Tool Package Registry',
+      description: 'Login to the Instant.bot Package Registry',
       args: [],
       flags: {},
       vflags: {

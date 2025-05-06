@@ -7,7 +7,7 @@ const fileWriter = require('../../file_writer.js');
 
 const generateTest = require('../test/_index.js');
 
-module.exports = async (InstantToolPackage, params) => {
+module.exports = async (InstantPackage, params) => {
 
   let writePathname = params.args[0] || '';
   writePathname = writePathname.split('/').filter(v => !!v).join('/');
@@ -36,7 +36,7 @@ module.exports = async (InstantToolPackage, params) => {
   console.log();
 
   if (!params.vflags.hasOwnProperty('no-tests')) {
-    await generateTest(InstantToolPackage, {args: [], flags: {}, vflags: {endpoint: [newFilename]}});
+    await generateTest(InstantPackage, {args: [], flags: {}, vflags: {endpoint: [newFilename]}});
   }
 
   return true;

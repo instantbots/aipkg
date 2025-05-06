@@ -26,7 +26,7 @@ class CreateOrganizationsCommand extends Command {
 
     const settings = SettingsManager.read(true);
     const host = settings.activeProfile.host || constants.BASE_URL;
-    const InstantToolPackage = await loadPackage(params, true);
+    const InstantPackage = await loadPackage(params, true);
 
     console.log();
     console.log(`Creating organization for ${colors.bold(settings.activeProfile.email)} on ${colors.bold(host)} ...`);

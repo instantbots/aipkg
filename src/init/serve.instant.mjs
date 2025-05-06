@@ -1,8 +1,8 @@
 /**
- * This file is ** NOT ** used in production on the Instant Tool Package Registry
- * Any code you change here ** WILL NOT ** run when hosted with Instant Tool Package
+ * This file is ** NOT ** used in production on the Instant.bot Package Registry
+ * Any code you change here ** WILL NOT ** run when hosted with Instant.bot Package
  * 
- * However, it used for local development and allows you to ship your Instant Tool Package
+ * However, it used for local development and allows you to ship your Instant.bot Package
  * service to any host which relies on `package.json["scripts"]["start"]`.
  */
 
@@ -30,7 +30,7 @@ if (cluster.isPrimary) {
     ENVIRONMENT !== 'development'
       ? os.cpus().length
       : 1,
-    'InstantToolPackage'
+    'InstantPackage'
   );
   daemon.start(PORT);
 
@@ -38,7 +38,7 @@ if (cluster.isPrimary) {
 
   // Individual webserver startup
   const gateway = new Gateway({
-    name: 'InstantToolPackage.Gateway',
+    name: 'InstantPackage.Gateway',
     debug: ENVIRONMENT !== 'production'
   });
   // Optional: Enable Sentry or another error reporting tool

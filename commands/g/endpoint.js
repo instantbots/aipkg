@@ -21,8 +21,8 @@ class GenerateEndpointCommand extends Command {
 
   async run (params) {
 
-    const InstantToolPackage = await loadPackage(params, true);
-    await generateEndpoint(InstantToolPackage, params);
+    const InstantPackage = await loadPackage(params, true);
+    await generateEndpoint(InstantPackage, params);
     return void 0;
 
   }

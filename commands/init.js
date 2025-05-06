@@ -57,7 +57,7 @@ class InitCommand extends Command {
 
   help () {
     return {
-      description: 'Initialize a new Instant Tool Package project',
+      description: 'Initialize a new Instant.bot Package project',
       args: [],
       flags: {},
       vflags: {
@@ -79,16 +79,16 @@ class InitCommand extends Command {
     );
 
     const pkgExists = fs.existsSync('package.json');
-    const functExists = fs.existsSync('intool.json');
+    const functExists = fs.existsSync('aipkg.json');
 
     console.log();
-    console.log(`🪄 You are about to initialize an ${colors.bold('Instant Tool Package')} in the current directory:`)
+    console.log(`🪄 You are about to initialize an ${colors.bold('Instant.bot Package')} in the current directory:`)
     console.log(`   📂 ${colors.dim(process.cwd())}`);
     console.log();
     if ((pkgExists || functExists) && !force) {
       throw new Error(
         `You already have a project initialized here.\n` +
-        `If you want to overwrite it, use \`$ intool init --force\``
+        `If you want to overwrite it, use \`$ aipkg init --force\``
       );
     } else {
       console.log(`✨ We've detected you're starting from scratch`);
@@ -106,8 +106,8 @@ class InitCommand extends Command {
       }
     }
 
-    let InstantToolPackage = await loadPackage(params);
-    if (!InstantToolPackage) {
+    let InstantPackage = await loadPackage(params);
+    if (!InstantPackage) {
       console.log();
       console.log(colors.bold.black(`Installing:`) + ` "@instant.dev/api@latest" (dev) ...`);
       if ('link' in params.vflags) {
@@ -178,11 +178,11 @@ class InitCommand extends Command {
     writeInitFiles(filesRoot);
     // Write package.json: make sure no publish to npm
     fileWriter.writeJSON('package.json', 'private', true);
-    // Write intool.json: default is public
-    fileWriter.writeJSON('intool.json', 'name', functName);
+    // Write aipkg.json: default is public
+    fileWriter.writeJSON('aipkg.json', 'name', functName);
 
-    // Now we reload InstantToolPackage to verify
-    InstantToolPackage = await loadPackage(null, true);
+    // Now we reload InstantPackage to verify
+    InstantPackage = await loadPackage(null, true);
 
     console.log();
     console.log(`Project "${colors.bold.blue(functName)}" initialized successfully!`);
@@ -195,9 +195,9 @@ class InitCommand extends Command {
         `Here are some helpful commands to get started:`,
         ``,
         `(1) Create a set of endpoints for a path (create, read, update, destroy):`,
-        colors.grey.bold(`     $ intool g:endpoint path/to/endpoint\n`),
+        colors.grey.bold(`     $ aipkg g:endpoint path/to/endpoint\n`),
         `(2) Run your dev server:`,
-        colors.grey.bold(`     $ intool serve`),
+        colors.grey.bold(`     $ aipkg serve`),
         ``,
         `For more information about ${colors.bold(`Instant.bot`)}:`,
         `     Home    => ${colors.bold.underline.blue('https://instant.bot')}`,

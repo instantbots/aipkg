@@ -22,7 +22,7 @@ class ServeCommand extends Command {
 
   async run (params) {
 
-    const InstantToolPackage = await loadPackage(params, true);
+    const InstantPackage = await loadPackage(params, true);
 
     localServer.run({ port: 8100 });
 

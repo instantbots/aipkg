@@ -23,7 +23,7 @@ class GenerateTestCommand extends Command {
 
   async run (params) {
 
-    const InstantToolPackage = await loadPackage(params, true);
+    const InstantPackage = await loadPackage(params, true);
 
     let specificity = [params.args[0], params.vflags.endpoint[0]];
     let submitted = specificity.filter(v => v);
@@ -31,7 +31,7 @@ class GenerateTestCommand extends Command {
       throw new Error(`Must specify one of "test_name" or "--endpoint"`);
     }
 
-    await generateTest(InstantToolPackage, params);
+    await generateTest(InstantPackage, params);
 
     return void 0;
 

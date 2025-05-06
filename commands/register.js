@@ -15,7 +15,7 @@ class RegisterCommand extends Command {
 
   help () {
     return {
-      description: 'Registers a new user account with the Instant Tool Package Registry',
+      description: 'Registers a new user account with the Instant.bot Package Registry',
       args: [],
       flags: {},
       vflags: {}

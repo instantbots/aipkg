@@ -1,8 +1,8 @@
-# Instant.bot Tool Package CLI
+# Instant.bot Package Registry CLI
 ## Extend AI agents with tools, instantly
 
-`intool` is the official CLI for publishing [Instant.bot](https://instant.bot) tool packages.
-You can use this utility to publish new packages to the Instant Tool Package Registry,
+`aipkg` is the official CLI for publishing [Instant.bot](https://instant.bot) packages.
+You can use this utility to publish new packages to the Instant.bot Package Registry,
 available at [instant.bot/packages](https://instant.bot/packages).
 
 [Instant.bot](https://instant.bot) enables you to rapidly build custom
@@ -11,36 +11,37 @@ major features;
 
 1. Chat with and develop your agent in real time from the web
 2. Extend your agent with [hosted tool packages](https://instant.bot/packages)
-3. Write your own private tools for your agents
+3. Write your own private tool packages for your agents
 4. Deploy your agent to third-party services like Discord and Slack
 
-## What is the Instant Tool Package Registry?
+## What is the Instant.bot Package Registry?
 
-**Instant Tool Packages are just REST API servers.**
+**Instant.bot Packages are just REST API servers.**
+The server HTTP endpoints are available to your agents and chatbots as tools.
 
-They are built with the [Instant API](https://github.com/instant-dev/api) framework,
+Packages are built with the [Instant API](https://github.com/instant-dev/api) framework,
 which is a simple way to export and auto-document JavaScript functions as REST endpoints
 that can be called via any HTTP client.
 
-The Instant Tool Package Registry is a **serverless hosting platform and registry** for
+The Instant.bot Package Registry is a **serverless hosting platform and registry** for
 [Instant API](https://github.com/instant-dev/api) projects.
 
-Authentication to your published tools are handled via **API keychains** which
+Authentication to your published packagesare handled via **API keychains** which
 are delegated via [Instant.bot](https://instant.bot).
 
 **NOTE:** While in beta, only Instant.bot agents can use your published tools.
 We'll be opening up the gateway to programmatic access in the coming months.
 
-## Instant Tool Package vs. MCP
+## Instant.bot Package vs. MCP
 
-Reminder, **Instant Tool Packages are just REST API servers.**
+Reminder, **Instant.bot Packages are just REST API servers.**
 
 MCP, or Model Context Protocol, is a standard for passing tool and prompt context
-between AI models and service providers. Instant Tool Packages are **not**
+between AI models and service providers. Instant.bot Packages are **not**
 MCP compatible out of the box, as they are simply REST APIs. However, it is our goal to add
 MCP bindings to the [Instant API](https://github.com/instant-dev/api) framework which
-powers all Instant Tool Packages. When formalized, this will allow you to use
-Instant Tool Packages with any MCP-compatible client or service provider.
+powers all Instant.bot Packages. When formalized, this will allow you to use
+Instant.bot Packages with any MCP-compatible client or service provider.
 Contributors welcome!
 
 ## Quickstart
@@ -50,19 +51,19 @@ Build a new bot is easy, you can then use this CLI to develop
 and publish custom packages to extend your bots.
 
 ```shell
-$ npm i intool -g
+$ npm i aipkg -g
 $ mkdir new-project
 $ cd new-project
-$ intool init  # initialize project in this directory
-$ intool login # log in to Instant Tool Package Registry with your Instant.bot account
-$ intool serve # run your tool package on a local server to test
-$ intool run / # test a single endpoint (like curl)
-$ intool up    # publish to development environment
-$ intool up --env staging    # publish to staging environment
-$ intool up --env production # publish to production environment
+$ aipkg init  # initialize project in this directory
+$ aipkg login # log in to Instant.bot Package Registry with your Instant.bot account
+$ aipkg serve # run your tool package on a local server to test
+$ aipkg run / # test a single endpoint (like curl)
+$ aipkg up    # publish to development environment
+$ aipkg up --env staging    # publish to staging environment
+$ aipkg up --env production # publish to production environment
 ```
 
-You can run `intool help` at any time to see available commands.
+You can run `aipkg help` at any time to see available commands.
 
 # Table of contents
 
@@ -72,7 +73,7 @@ You can run `intool help` at any time to see available commands.
    1. [Initialize a project](#initialize-a-project)
       1. [Defining tools aka endpoints](#defining-tools-aka-endpoints)
       1. [Endpoint name, description, types](#endpoint-name-description-types)
-   1. [Deploy an Instant Tool Package](#deploy-an-instant-tool-package)
+   1. [Deploy an Instant.bot Package](#deploy-an-instant-tool-package)
       1. [Public packages](#public-packages)
       1. [Private packages](#private-packages)
 1. [Additional utilities](#additional-utilities)
@@ -91,7 +92,7 @@ Tool packages are REST APIs that can be used by your agent. You can publish tool
 for use by your agent and others or keep them private.
 
 When you ask your agent a question that requires a tool call, Instant.bot will
-automatically route the request to the appropriate tool from the Instant Tool Package Registry
+automatically route the request to the appropriate tool from the Instant.bot Package Registry
 and call the tool on your behalf.
 
 ## Is this free or paid?
@@ -119,27 +120,27 @@ working with your own editor, you can use this CLI.
 
 ## Initialize a project
 
-To initialize a new Instant Tool Package project:
+To initialize a new Instant.bot Package project:
 
 ```shell
-$ npm i intool -g
+$ npm i aipkg -g
 $ mkdir new-project
 $ cd new-project
-$ intool init
+$ aipkg init
 ```
 
-You'll be walked through the process. The `intool` CLI will automatically check for
+You'll be walked through the process. The `aipkg` CLI will automatically check for
 updates to core packages, so make sure you update when available. To play around with your
-Instant Tool Package locally;
+Instant.bot Package locally;
 
 ```shell
-$ intool serve
+$ aipkg serve
 ```
 
 Will start an HTTP server. To execute a standalone endpoint / tool:
 
 ```shell
-$ intool run /
+$ aipkg run /
 ```
 
 ### Defining tools aka endpoints
@@ -148,9 +149,9 @@ Defining custom tools is easy. You'll find the terms **tool** and
 **endpoint** used interchangeably as they all refer
 to the same thing: your bot executing custom code in the cloud.
 
-A **tool** is just an **endpoint** hosted by the Instant Tool Package Registry.
+A **tool** is just an **endpoint** hosted by the Instant.bot Package Registry.
 
-All endpoints for Instant Tool Packages live in the `functions/` directory.
+All endpoints for Instant.bot Packages live in the `functions/` directory.
 Each file name maps to the endpoint route e.g. `functions/hello.mjs`
 routes to `localhost:8000/hello`. You can export custom `GET`, `POST`, `PUT`
 and `DELETE` functions from every file. Here's an example "hello world" endpoint:
@@ -174,12 +175,12 @@ your tool package.
 ### Endpoint name, description, types
 
 Using the comment block above every exported method (e.g. GET) you can
-define your endpoint. Instant Tool Packages use an open source specification called
+define your endpoint. Instant.bot Packages use an open source specification called
 [Instant API](https://github.com/instant-dev/api) to export JavaScript
 functions as type safe web APIs. You can learn more about how to properly
 define and document the shape (parameters) of your API there.
 
-## Deploy an Instant Tool Package
+## Deploy an Instant.bot Package
 
 ### Public packages
 
@@ -188,7 +189,7 @@ They are billed directly from their account.
 
 By default all packages are created as public projects. Public
 projects are namespaced to your username, e.g. `@my-username/project`.
-This can be found in the `"name"` field of `intool.json`.
+This can be found in the `"name"` field of `aipkg.json`.
 
 Note that the code for public projects will be shared publicly for anybody
 to see, and the expectation is that others can use this code in their bots
@@ -198,14 +199,14 @@ they will be billed from their balance.
 To deploy a public project to a `development` environment, you can use:
 
 ```shell
-$ intool up
+$ aipkg up
 ```
 
 You can also publish to `staging` and `production` using:
 
 ```shell
-$ intool up --env staging
-$ intool up --env production
+$ aipkg up --env staging
+$ aipkg up --env production
 ```
 
 ### Private packages
@@ -215,7 +216,7 @@ packages. However, all code and endpoints will not be publicly available;
 you must share the URL with somebody in order for them to use it.
 
 You can publish private project by prepending `private/` on the
-`"name"` field in `intool.json`, e.g.
+`"name"` field in `aipkg.json`, e.g.
 
 ```json
 {
@@ -234,15 +235,15 @@ There are a few additional utilities you may find useful with this package;
 
 ```shell
 # generates functions/my-endpoint/example.mjs
-$ intool g:endpoint my-endpoint/example
+$ aipkg g:endpoint my-endpoint/example
 ```
 
 ## Generate tests
 
 ```shell
 # Generate blank tests or ones for an endpoint
-$ intool g:test my_test # OR ...
-$ intool g:test --endpoint my-endpoint/example
+$ aipkg g:test my_test # OR ...
+$ aipkg g:test --endpoint my-endpoint/example
 ```
 
 ## Run tests
@@ -250,7 +251,7 @@ $ intool g:test --endpoint my-endpoint/example
 You can write tests for your tools to verify they work. Simply run;
 
 ```shell
-$ intool test
+$ aipkg test
 ```
 
 And voila!

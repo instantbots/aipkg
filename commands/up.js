@@ -19,7 +19,7 @@ const DEFAULT_IGNORE = [
   '.git',               // do not deploy git history
   '.DS_Store',          // do not deploy macOS files
   'package-lock.json',  // deps installed from package.json
-  'serve.instant.mjs'     // not used by Instant Tool Package Registry; irrelevant
+  'serve.instant.mjs'     // not used by Instant.bot Package Registry; irrelevant
 ];
 
 function formatSize (size) {
@@ -81,7 +81,7 @@ class UpCommand extends Command {
 
   help () {
     return {
-      description: 'Deploys your project to the Instant Tool Package Registry',
+      description: 'Deploys your project to the Instant.bot Package Registry',
       args: [],
       flags: {
         v: 'Verbose mode; print full details of packaging'
@@ -95,7 +95,7 @@ class UpCommand extends Command {
   async run (params) {
 
     const settings = SettingsManager.read(true);
-    const InstantToolPackage = await loadPackage(params, true);
+    const InstantPackage = await loadPackage(params, true);
 
     const isVerbose = params.flags.hasOwnProperty('v');
     const env = (params.vflags.env || [])[0] || 'development';
@@ -107,10 +107,10 @@ class UpCommand extends Command {
     let packageJSON;
 
     try {
-      functJSON = require(path.join(process.cwd(), 'intool.json'));
+      functJSON = require(path.join(process.cwd(), 'aipkg.json'));
     } catch (e) {
       console.error(e);
-      console.error(new Error('Invalid "intool.json" in this directory'));
+      console.error(new Error('Invalid "aipkg.json" in this directory'));
       process.exit(1);
     }
 
@@ -130,9 +130,9 @@ class UpCommand extends Command {
     console.log();
 
     !fs.existsSync('/tmp') && fs.mkdirSync('/tmp');
-    !fs.existsSync('/tmp/intool') && fs.mkdirSync('/tmp/intool', 0o777);
+    !fs.existsSync('/tmp/aipkg') && fs.mkdirSync('/tmp/aipkg', 0o777);
     const tmpName = name.replace(/\//g, '.');
-    const tmpPath = `/tmp/intool/${tmpName}.${new Date().valueOf()}.tar.gz`;
+    const tmpPath = `/tmp/aipkg/${tmpName}.${new Date().valueOf()}.tar.gz`;
 
     const t0 = new Date().valueOf();
 
@@ -140,9 +140,9 @@ class UpCommand extends Command {
     const pack = tar.pack();
 
     let ignore = DEFAULT_IGNORE.slice();
-    if (fs.existsSync(path.join(process.cwd(), '.intoolignore'))) {
+    if (fs.existsSync(path.join(process.cwd(), '.aipkgignore'))) {
       ignore = ignore.concat(
-        fs.readFileSync(path.join(process.cwd(), '.intoolignore')).toString()
+        fs.readFileSync(path.join(process.cwd(), '.aipkgignore')).toString()
           .split('\n')
           .map(line => line.trim())
           .filter(line => !!line && !line.trim().startsWith('#'))
