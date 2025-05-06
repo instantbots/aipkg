@@ -68,7 +68,7 @@ You can run `aipkg help` at any time to see available commands.
 # Table of contents
 
 1. [How does Instant.bot work?](#how-does-instant-bot-work)
-   1. [Is this free or paid](#is-this-free-or-paid)
+   1. [How is hosting billed?](#how-is-hosting-billed)
 1. [Building custom packages for your bots](#building-custom-packages-for-your-bots)
    1. [Initialize a project](#initialize-a-project)
       1. [Defining tools aka endpoints](#defining-tools-aka-endpoints)
@@ -95,7 +95,7 @@ When you ask your agent a question that requires a tool call, Instant.bot will
 automatically route the request to the appropriate tool from the Instant.bot Package Registry
 and call the tool on your behalf.
 
-## Is this free or paid?
+## How is hosting billed?
 
 Model usage (generating responses) is a subscription-based service. However,
 for development purposes, you can use our lowest-tier model indefinitely in rate-limited mode
