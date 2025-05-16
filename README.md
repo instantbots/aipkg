@@ -24,7 +24,7 @@ Every package is an [Instant API](https://github.com/instant-dev/api) project,
 which is a simple way to export and auto-document JavaScript functions as REST endpoints
 that can be called via any HTTP client.
 
-Authentication to your published packagesare handled via **API keychains** which
+Authentication to your published packages are handled via **API keychains** which
 are delegated via [Instant.bot](https://instant.bot).
 
 **NOTE:** While in beta, only Instant.bot agents can use your published tools.
